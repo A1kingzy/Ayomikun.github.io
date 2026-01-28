@@ -1,28 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Ayomikun Labinjo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayomikun Labinjo | Portfolio</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            /* Color Palette from Image */
+            --primary-deep: #0F0E47;
+            --secondary-navy: #272757;
+            --muted-lavender: #8686AC;
+            --accent-steel: #505081;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff;
+            --text-dim: #d1d1e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-deep), var(--secondary-navy));
+            background-attachment: fixed;
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* --- Layout Components --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 14, 71, 0.7);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo { font-weight: 700; font-size: 1.2rem; letter-spacing: -0.5px; }
+
+        section {
+            padding: 100px 10%;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* --- Glass Cards --- */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: transform 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* --- Hero --- */
+        #hero { text-align: center; }
+        #hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); margin-bottom: 1rem; letter-spacing: -2px; }
+        #hero p { font-size: 1.2rem; color: var(--muted-lavender); font-weight: 300; }
+
+        /* --- Skills --- */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 2rem;
+        }
+        .skill-pill {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+
+        /* --- Experience --- */
+        .timeline {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .exp-item h3 { color: var(--muted-lavender); margin-bottom: 0.5rem; }
+        .exp-date { font-size: 0.85rem; opacity: 0.7; margin-bottom: 1rem; display: block; }
+
+        /* --- Projects Grid --- */
+        #projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 10px 25px;
+            background: var(--text-main);
+            color: var(--primary-deep);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: opacity 0.3s;
+        }
+
+        .project-btn:hover { opacity: 0.9; }
+
+        /* --- Socials --- */
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .social-links a { color: var(--text-main); transition: color 0.3s; }
+        .social-links a:hover { color: var(--muted-lavender); }
+
+        /* --- YouTube Section --- */
+        .yt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        iframe {
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 80px 5%; }
+        }
+    </style>
 </head>
 <body>
-  <h1>Ayomikun Labinjo</h1>
-  <p>Aeronautical Engineering student based in London.</p>
 
-  <h2>About Me</h2>
-  <p>
-    I’m interested in aerospace systems, engineering design,
-    and computational tools for engineering analysis.
-  </p>
+    <nav>
+        <div class="nav-logo">AL.ENGINEERING</div>
+    </nav>
 
-  <h2>Skills</h2>
-  <ul>
-    <li>Python</li>
-    <li>CAD (NX / SolidWorks)</li>
-    <li>Mathematics & Engineering Analysis</li>
-  </ul>
+    <section id="hero" class="reveal">
+        <h1>Ayomikun Labinjo</h1>
+        <p>Aeronautical Engineering Student | Proactive, Analytical, Powered by Code</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/ayomikun-labinjo-275800281/" target="_blank"><i data-lucide="linkedin"></i></a>
+            <a href="https://www.instagram.com/labz365" target="_blank"><i data-lucide="instagram"></i></a>
+            <a href="https://www.tiktok.com/@labz.365" target="_blank"><i data-lucide="video"></i></a>
+            <a href="https://www.youtube.com/@Labz365" target="_blank"><i data-lucide="youtube"></i></a>
+        </div>
+    </section>
 
-  <h2>Contact</h2>
-  <p>Email: your@email.com</p>
+    <section id="about" class="reveal">
+        <div class="glass-card">
+            <h2>Profile</h2>
+            <p style="margin-top:1rem;">A proactive and analytical aeronautical engineering undergraduate with strong technical aptitude and hands-on experience in IT support, digital workflow management, and academic tutoring[cite: 32]. Skilled in problem-solving, system organisation, and simplifying complex information[cite: 33].</p>
+            <div class="skills-grid">
+                <span class="skill-pill">Mathematical Analysis</span>
+                <span class="skill-pill">Aeronautical Mechanics</span>
+                <span class="skill-pill">OOP</span>
+                <span class="skill-pill">CAD</span>
+                <span class="skill-pill">Matlab</span>
+                <span class="skill-pill">Python</span>
+                <span class="skill-pill">Dart / Java</span>
+                <span class="skill-pill">LaTeX</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="reveal">
+        <h2>Experience</h2>
+        <div class="timeline">
+            <div class="glass-card exp-item">
+                <span class="exp-date">July 2025 – Present [cite: 22]</span>
+                <h3>IT Support Assistant</h3>
+                <p>Caremark Tunbridge Wells: Resolving software issues and managing digital transformation[cite: 23, 24].</p>
+            </div>
+            <div class="glass-card exp-item">
+                <span class="exp-date">Sept 2023 – Sept 2025 </span>
+                <h3>Private Mathematics Tutor</h3>
+                <p>Self-Employed: Delivering personalized sessions and simplifying complex concepts.</p>
+            </div>
+            <div class="glass-card exp-item">
+                <span class="exp-date">Virtual Work Experience </span>
+                <h3>Engineering & Finance Internships</h3>
+                <p>Rolls-Royce (Finance Analysis), Barclays (Software Engineering/DB Design), and Airbus (Aerospace Innovation).</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="youtube" class="reveal">
+        <h2>Latest Content</h2>
+        <div class="yt-grid">
+            <iframe height="200" src="https://www.youtube.com/embed?listType=user_uploads&list=Labz365" frameborder="0" allowfullscreen></iframe>
+            <div class="glass-card">
+                <p>Check out my latest videos on engineering, tech, and productivity on my YouTube channel <strong>@Labz365</strong>.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="reveal">
+        <h2>Projects & Research</h2>
+        <div id="projects-container">
+            </div>
+    </section>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // ---------------------------------------------------------
+        // 1. MODULAR PROJECT DATA
+        // EDIT THIS LIST TO ADD NEW PROJECTS OR PDFS
+        // ---------------------------------------------------------
+        const projectData = [
+            {
+                title: "Aerospace Design Analysis",
+                description: "Research on structural integrity and aeronautical mechanics principles.",
+                link: "path/to/your/essay1.pdf" // Update with your actual file path
+            },
+            {
+                title: "Software Engineering Database",
+                description: "Database schema design and junior developer architecture for productivity apps.",
+                link: "path/to/your/project2.pdf"
+            },
+            {
+                title: "Mathematical Tutoring Framework",
+                description: "Custom lesson planning and performance tracking methodologies.",
+                link: "#"
+            }
+        ];
+
+        // ---------------------------------------------------------
+        // 2. GENERATE PROJECT CARDS AUTOMATICALLY
+        // ---------------------------------------------------------
+        const container = document.getElementById('projects-container');
+        
+        projectData.forEach(project => {
+            const card = document.createElement('div');
+            card.className = 'glass-card project-item';
+            card.innerHTML = `
+                <h3>${project.title}</h3>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-dim);">${project.description}</p>
+                <a href="${project.link}" class="project-btn" target="_blank">View PDF</a>
+            `;
+            container.appendChild(card);
+        });
+
+        // ---------------------------------------------------------
+        // 3. SCROLL REVEAL ANIMATION (iOS Style)
+        // ---------------------------------------------------------
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
