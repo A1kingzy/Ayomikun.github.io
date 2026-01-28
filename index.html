@@ -6,151 +6,182 @@
 <title>Ayomikun Labinjo — Blue Eclipse</title>
 
 <style>
-:root{
-  --bg:#f9f9f9;
-  --glass:rgba(255,255,255,0.6);
-  --border:rgba(0,0,0,0.1);
-  --txt:#1c1c1c;
-  --sub:#555;
-  --accent:#007aff;
-  --pill-bg:#ffffff;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,sans-serif;
-  background:var(--bg);
-  color:var(--txt);
-  overflow-x:hidden;
-}
-a{text-decoration:none;color:inherit}
-
-.glass{
-  background:var(--glass);
-  backdrop-filter:blur(16px);
-  border:1px solid var(--border);
-  border-radius:22px;
+/* ===== LIGHT MODE VARIABLES ===== */
+:root {
+  --primary: #0A2647; /* Navy */
+  --secondary: #1A1A1A; /* Charcoal */
+  --bg: #FFFFFF; /* Pure White */
+  --txt: #1A1A1A;
+  --sub: #495057;
+  --accent: #FF6700; /* Vibrant Orange */
+  --pill-bg: #FFFFFF;
+  --glass: rgba(255, 255, 255, 0.6);
+  --border: rgba(0, 0, 0, 0.1);
 }
 
-nav{
-  position:sticky;
-  top:16px;
-  margin:auto;
-  max-width:1200px;
-  padding:14px 28px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  z-index:100;
+/* ===== DARK MODE VARIABLES ===== */
+body.dark {
+  --primary: #212529; /* Near Black */
+  --secondary: #495057; /* Dark Grey */
+  --txt: #DEE2E6; /* Light Grey */
+  --sub: #CED4DA;
+  --bg: #121212;
+  --accent: #007BFF; /* Electric Blue */
+  --pill-bg: #1E1E1E;
+  --glass: rgba(33, 37, 41, 0.6);
+  --border: rgba(255, 255, 255, 0.1);
 }
 
-section{
-  max-width:1200px;
-  margin:90px auto;
-  padding:0 24px;
-  opacity:0;
-  transform:translateY(30px) scale(.96);
-  transition:all .9s cubic-bezier(.22,1,.36,1);
+/* ===== GENERAL STYLES ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--txt);
+  overflow-x: hidden;
+  transition: all 0.3s ease;
 }
-section.visible{opacity:1;transform:none}
+a { text-decoration: none; color: inherit; }
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  transition: all 0.3s ease;
+}
 
-h1{font-size:clamp(2.4rem,4vw,3.2rem)}
-h2{margin-bottom:28px}
+/* ===== NAVBAR ===== */
+nav {
+  position: sticky;
+  top: 16px;
+  margin: auto;
+  max-width: 1200px;
+  padding: 14px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+nav .toggle-btn {
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  border: none;
+  transition: 0.25s;
+}
+nav .toggle-btn:hover { transform: scale(1.1); }
+
+/* ===== SECTIONS ===== */
+section {
+  max-width: 1200px;
+  margin: 90px auto;
+  padding: 0 24px;
+  opacity: 0;
+  transform: translateY(30px) scale(.96);
+  transition: all 0.9s cubic-bezier(.22,1,.36,1);
+}
+section.visible { opacity: 1; transform: none; }
+
+h1 { font-size: clamp(2.4rem,4vw,3.2rem); color: var(--primary); }
+h2 { margin-bottom: 28px; color: var(--primary); }
+h3 { color: var(--secondary); }
 
 /* ===== HERO ===== */
-.hero{text-align:center;padding:90px 40px;cursor:pointer;position:relative}
-.hero-summary{
-  font-size:.9rem;
-  color:var(--sub);
-  margin-top:12px;
-  opacity:0;
-  transition:.3s
+.hero { text-align: center; padding: 90px 40px; cursor: pointer; position: relative; }
+.hero-summary {
+  font-size: .9rem;
+  color: var(--sub);
+  margin-top: 12px;
+  opacity: 0;
+  transition: .3s;
 }
-.hero:hover .hero-summary{opacity:1}
+.hero:hover .hero-summary { opacity: 1; }
+.profile-details {
+  margin-top: 40px;
+  text-align: left;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all .8s cubic-bezier(.22,1,.36,1);
+}
+.hero.active .profile-details { max-height: 4000px; opacity: 1; }
 
-.profile-details{
-  margin-top:40px;
-  text-align:left;
-  max-height:0;
-  opacity:0;
-  overflow:hidden;
-  transition:all .8s cubic-bezier(.22,1,.36,1)
+/* ===== SOCIALS ===== */
+.socials {
+  margin-top: 30px;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
 }
-.hero.active .profile-details{max-height:4000px;opacity:1}
-
-/* ===== SOCIAL ===== */
-.socials{
-  margin-top:30px;
-  display:flex;
-  gap:14px;
-  justify-content:center
+.social-pill {
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: .85rem;
+  background: var(--pill-bg);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  transition: .25s;
 }
-.social-pill{
-  padding:10px 18px;
-  border-radius:999px;
-  font-size:.85rem;
-  background:var(--pill-bg);
-  border:1px solid var(--border);
-  color:var(--accent);
-  transition:.25s;
-}
-.social-pill:hover{transform:scale(1.1)}
+.social-pill:hover { transform: scale(1.1); }
 
 /* ===== EXPERIENCE ===== */
-.experience-item{
-  margin-bottom:28px;
-  position:relative;
+.experience-item {
+  margin-bottom: 28px;
+  position: relative;
 }
-.experience-item span{color:var(--sub);font-size:.85rem}
-.experience-item li{color:var(--sub);font-size:.9rem;margin-top:6px}
+.experience-item span { color: var(--sub); font-size: .85rem; }
+.experience-item li { color: var(--sub); font-size: .9rem; margin-top: 6px; }
 
 /* ===== SKILLS ===== */
-.skills{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px
+.skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
 }
-.skill{
-  padding:20px;
-  cursor:pointer;
-  position:relative;
-  background:var(--pill-bg);
-  border:1px solid var(--border);
-  border-radius:16px;
-  transition:.35s cubic-bezier(.22,1,.36,1)
+.skill {
+  padding: 20px;
+  cursor: pointer;
+  position: relative;
+  background: var(--pill-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: .35s cubic-bezier(.22,1,.36,1);
 }
-.skill:hover{transform:scale(1.07)}
-.skill-preview{
-  font-size:.8rem;color:var(--sub);margin-top:6px;
-  opacity:0;transition:.25s
-}
-.skill:hover .skill-preview{opacity:1}
-.skill-detail{
-  margin-top:12px;font-size:.85rem;color:var(--sub);
-  max-height:0;opacity:0;overflow:hidden;transition:.4s
-}
-.skill.active .skill-detail{max-height:300px;opacity:1}
+.skill:hover { transform: scale(1.07); }
+.skill-preview { font-size: .8rem; color: var(--sub); margin-top: 6px; opacity: 0; transition: .25s; }
+.skill:hover .skill-preview { opacity: 1; }
+.skill-detail { margin-top: 12px; font-size: .85rem; color: var(--sub); max-height: 0; opacity: 0; overflow: hidden; transition: .4s; }
+.skill.active .skill-detail { max-height: 300px; opacity: 1; }
 
 /* ===== PROJECTS ===== */
-.projects{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:26px
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 26px;
 }
-.project{
-  padding:26px;
-  transition:.35s;
-  background:var(--pill-bg);
-  border:1px solid var(--border);
-  border-radius:16px;
+.project {
+  padding: 26px;
+  transition: .35s;
+  background: var(--pill-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
 }
-.project:hover{transform:scale(1.05)}
-button{
-  margin-top:18px;padding:10px;border:none;
-  border-radius:12px;background:var(--accent);color:#fff;cursor:pointer
+.project:hover { transform: scale(1.05); }
+button {
+  margin-top: 18px;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
 }
 
 /* ===== FOOTER ===== */
-footer{text-align:center;margin:90px 0 40px;color:var(--sub)}
+footer { text-align: center; margin: 90px 0 40px; color: var(--sub); }
 </style>
 </head>
 
@@ -161,6 +192,7 @@ footer{text-align:center;margin:90px 0 40px;color:var(--sub)}
 <div>
   <a href="#projects">Projects</a>
   <a href="#youtube" style="margin-left:20px">YouTube</a>
+  <button class="toggle-btn" id="modeToggle">Dark Mode</button>
 </div>
 </nav>
 
@@ -170,11 +202,13 @@ footer{text-align:center;margin:90px 0 40px;color:var(--sub)}
 <div class="hero-summary">Hover for overview · Click for full profile</div>
 
 <div class="socials">
-<a class="social-pill" href="https://www.linkedin.com/in/ayomikun-labinjo" target="_blank">LinkedIn</a>
-<a class="social-pill" href="https://instagram.com/labz365" target="_blank">Instagram</a>
-<a class="social-pill" href="https://www.tiktok.com/@labz.365" target="_blank">TikTok</a>
-<a class="social-pill" href="https://www.youtube.com/@LABZ365" target="_blank">YouTube</a>
+  <a class="social-pill" href="https://www.linkedin.com/in/ayomikun-labinjo" target="_blank">LinkedIn</a>
+  <a class="social-pill" href="https://instagram.com/labz365" target="_blank">Instagram</a>
+  <a class="social-pill" href="https://www.tiktok.com/@labz.365" target="_blank">TikTok</a>
+  <a class="social-pill" href="https://www.youtube.com/@LABZ365" target="_blank">YouTube</a>
+  <button class="social-pill" onclick="window.open('Resume.pdf')">Resume</button>
 </div>
+
 
 <div class="profile-details">
 <h3>Personal Statement</h3>
@@ -183,7 +217,8 @@ A proactive and analytical aeronautical engineering undergraduate with strong
 technical aptitude and hands-on experience in IT support, digital workflow
 management, and academic tutoring. Skilled in problem-solving, system
 organisation, and simplifying complex information. Reliable, adaptable,
-self-motivated, and consistent in fast-paced environments.
+self-motivated,
+and consistent in fast-paced environments.
 </p>
 
 <h3 style="margin-top:30px">Experience</h3>
@@ -212,7 +247,7 @@ self-motivated, and consistent in fast-paced environments.
 <footer>© 2026 Ayomikun Labinjo — Personal Website</footer>
 
 <script>
-/* ===== REVEAL ===== */
+/* ===== REVEAL SECTIONS ===== */
 const io = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting) e.target.classList.add("visible");
@@ -223,7 +258,7 @@ document.querySelectorAll("section").forEach(s=>io.observe(s));
 /* ===== HERO TOGGLE ===== */
 document.getElementById("profile").onclick = ()=>document.getElementById("profile").classList.toggle("active");
 
-/* ===== EXPERIENCE DATA ===== */
+/* ===== EXPERIENCE ===== */
 const experienceEl = document.getElementById("experience");
 const exp=[
   {r:"IT Support Assistant — Caremark",d:"2025 – Present",p:["Technical support","Digital transformation","Cloud systems"]},
@@ -232,7 +267,6 @@ const exp=[
   {r:"Barclays Software Engineering Taster",d:"2026",p:["Database design","Schema planning"]},
   {r:"Airbus Aerospace Virtual Experience",d:"2024",p:["Aviation safety","Independent research"]}
 ];
-
 exp.forEach(e=>{
   experienceEl.innerHTML += `
   <div class="experience-item">
@@ -251,7 +285,6 @@ const skills=[
   ["Matlab","Numerical computing","Engineering analysis"],
   ["LaTeX","Technical documentation","Professional reports"]
 ];
-
 skills.forEach(s=>{
   skillsElContainer.innerHTML += `
   <div class="skill" onclick="this.classList.toggle('active')">
@@ -268,7 +301,6 @@ const projectData=[
   {t:"Physics IA",d:"The effect of the number of blades on a propeller on the force generated.",p:"#"},
   {t:"Mathematics IA",d:"Calculating the mass of a flywheel for a V8 engine using engine specs.",p:"#"}
 ];
-
 projectData.forEach(p=>{
   projectsGrid.innerHTML += `
   <div class="project">
@@ -276,6 +308,13 @@ projectData.forEach(p=>{
     <p>${p.d}</p>
     <button onclick="window.open('${p.p}')">View PDF</button>
   </div>`;
+});
+
+/* ===== LIGHT/DARK MODE TOGGLE ===== */
+const modeToggle = document.getElementById("modeToggle");
+modeToggle.addEventListener("click", ()=>{
+  document.body.classList.toggle("dark");
+  modeToggle.textContent = document.body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
 });
 </script>
 
