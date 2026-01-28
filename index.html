@@ -1,400 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ayomikun Labinjo — Blue Eclipse</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ayomikun Labinjo — Blue Eclipse</title>
 
-  <style>
-    :root {
-      --deep-blue: #0F0E47;
-      --navy: #272757;
-      --lavender: #8686AC;
-      --steel: #505081;
+<style>
+:root{
+--deep:#0F0E47;--navy:#272757;--lav:#8686AC;--steel:#505081;
+--glass:rgba(255,255,255,.08);--border:rgba(255,255,255,.18);
+--txt:#fff;--sub:#cfd0ff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,sans-serif;
+background:linear-gradient(135deg,var(--deep),var(--navy));
+color:var(--txt);overflow-x:hidden
+}
+a{text-decoration:none;color:inherit}
 
-      --glass-bg: rgba(255, 255, 255, 0.08);
-      --glass-border: rgba(255, 255, 255, 0.18);
-      --text-primary: #ffffff;
-      --text-secondary: #cfd0ff;
-    }
+.glass{
+background:var(--glass);
+backdrop-filter:blur(16px);
+border:1px solid var(--border);
+border-radius:22px;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+nav{
+position:sticky;top:16px;margin:auto;
+max-width:1200px;padding:14px 28px;
+display:flex;justify-content:space-between;align-items:center;z-index:100
+}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-                   "Segoe UI", Roboto, sans-serif;
-      background: linear-gradient(135deg, var(--deep-blue), var(--navy));
-      color: var(--text-primary);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+section{
+max-width:1200px;margin:90px auto;padding:0 24px;
+opacity:0;transform:translateY(30px) scale(.96);
+transition:all .9s cubic-bezier(.22,1,.36,1)
+}
+section.visible{opacity:1;transform:none}
 
-    a { color: inherit; text-decoration: none; }
+h1{font-size:clamp(2.4rem,4vw,3.2rem)}
+h2{margin-bottom:28px}
 
-    .glass {
-      background: var(--glass-bg);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border: 1px solid var(--glass-border);
-      border-radius: 18px;
-    }
+/* ===== HERO ===== */
+.hero{text-align:center;padding:90px 40px;cursor:pointer;position:relative}
+.hero-summary{
+font-size:.9rem;color:var(--lav);margin-top:12px;
+opacity:0;transition:.3s
+}
+.hero:hover .hero-summary{opacity:1}
 
-    nav {
-      position: sticky;
-      top: 16px;
-      margin: 16px auto;
-      max-width: 1100px;
-      padding: 12px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 100;
-    }
+.profile-details{
+margin-top:40px;text-align:left;
+max-height:0;opacity:0;overflow:hidden;
+transition:all .8s cubic-bezier(.22,1,.36,1)
+}
+.hero.active .profile-details{max-height:4000px;opacity:1}
 
-    nav span { font-weight: 600; }
+/* ===== SOCIAL ===== */
+.socials{
+margin-top:30px;display:flex;gap:14px;justify-content:center
+}
+.social-pill{
+padding:10px 18px;border-radius:999px;font-size:.85rem;
+transition:.25s
+}
+.social-pill:hover{transform:scale(1.1)}
 
-    nav a {
-      margin-left: 20px;
-      opacity: 0.85;
-      transition: opacity 0.3s ease;
-    }
+/* ===== EXPERIENCE ===== */
+.experience-item{
+margin-bottom:28px;position:relative
+}
+.experience-item span{color:var(--lav);font-size:.85rem}
+.experience-item li{color:var(--sub);font-size:.9rem;margin-top:6px}
 
-    nav a:hover { opacity: 1; }
+/* ===== SKILLS ===== */
+.skills{
+display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px
+}
+.skill{
+padding:20px;cursor:pointer;position:relative;
+transition:.35s cubic-bezier(.22,1,.36,1)
+}
+.skill:hover{transform:scale(1.07)}
+.skill-preview{
+font-size:.8rem;color:var(--lav);margin-top:6px;
+opacity:0;transition:.25s
+}
+.skill:hover .skill-preview{opacity:1}
+.skill-detail{
+margin-top:12px;font-size:.85rem;color:var(--sub);
+max-height:0;opacity:0;overflow:hidden;transition:.4s
+}
+.skill.active .skill-detail{max-height:300px;opacity:1}
 
-    section {
-      max-width: 1100px;
-      margin: 80px auto;
-      padding: 0 20px;
-      opacity: 0;
-      transform: scale(0.97) translateY(20px);
-      transition: all 0.9s cubic-bezier(.22,1,.36,1);
-    }
+/* ===== PROJECTS ===== */
+.projects{
+display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:26px
+}
+.project{
+padding:26px;transition:.35s
+}
+.project:hover{transform:scale(1.05)}
+button{
+margin-top:18px;padding:10px;border:none;
+border-radius:12px;background:var(--steel);color:#fff;cursor:pointer
+}
 
-    section.visible {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-
-    h1, h2, h3 { font-weight: 600; }
-    h2 { margin-bottom: 24px; }
-
-    /* ===== HERO / PROFILE ===== */
-    .hero {
-      text-align: center;
-      padding: 80px 30px;
-      cursor: pointer;
-    }
-
-    .hero:hover {
-      transform: scale(1.02);
-    }
-
-    .hero p {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-    }
-
-    .profile-details {
-      margin-top: 30px;
-      text-align: left;
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition:
-        max-height 0.8s cubic-bezier(.22,1,.36,1),
-        opacity 0.5s ease;
-    }
-
-    .hero.active .profile-details {
-      max-height: 2000px;
-      opacity: 1;
-    }
-
-    .experience-item {
-      margin-bottom: 22px;
-    }
-
-    .experience-item span {
-      color: var(--lavender);
-      font-size: 0.85rem;
-    }
-
-    .experience-item ul {
-      margin-top: 8px;
-      padding-left: 18px;
-    }
-
-    .experience-item li {
-      font-size: 0.88rem;
-      margin-bottom: 6px;
-      color: var(--text-secondary);
-    }
-
-    /* ===== INTERACTIVE SKILLS ===== */
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .skill-card {
-      padding: 14px 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border);
-      cursor: pointer;
-      max-width: 280px;
-      transition: transform 0.45s cubic-bezier(.22,1,.36,1);
-    }
-
-    .skill-card:hover {
-      transform: scale(1.06);
-    }
-
-    .skill-title {
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    .skill-details {
-      margin-top: 10px;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition:
-        max-height 0.5s cubic-bezier(.22,1,.36,1),
-        opacity 0.4s ease;
-    }
-
-    .skill-card.active .skill-details {
-      max-height: 200px;
-      opacity: 1;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    .project-card {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.4s cubic-bezier(.22,1,.36,1);
-    }
-
-    .project-card:hover { transform: scale(1.04); }
-
-    .project-card button {
-      margin-top: 16px;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      background: var(--steel);
-      color: white;
-      cursor: pointer;
-    }
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    iframe {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      border-radius: 14px;
-      border: none;
-    }
-
-    footer {
-      text-align: center;
-      margin: 80px 0 40px;
-      color: var(--lavender);
-      font-size: 0.9rem;
-    }
-  </style>
+/* ===== FOOTER ===== */
+footer{text-align:center;margin:90px 0 40px;color:var(--lav)}
+</style>
 </head>
 
 <body>
 
 <nav class="glass">
-  <span>Ayomikun Labinjo</span>
-  <div>
-    <a href="#projects">Projects</a>
-    <a href="#youtube">YouTube</a>
-    <a href="https://www.linkedin.com/in/Ayomikun Labinjo" target="_blank">LinkedIn</a>
-  </div>
+<strong>AL</strong>
+<div>
+<a href="#projects">Projects</a>
+<a href="#youtube" style="margin-left:20px">YouTube</a>
+</div>
 </nav>
 
-<!-- ===== HERO / PROFILE ===== -->
-<section class="hero glass" id="profileCard">
-  <h1>Ayomikun Labinjo</h1>
-  <p>Aeronautical Engineering Student</p>
+<section class="hero glass" id="profile">
+<h1>Ayomikun Labinjo</h1>
+<p>Aeronautical Engineering Student</p>
+<div class="hero-summary">Hover for overview · Click for full profile</div>
 
-  <div class="profile-details">
-    <h3>Personal Statement</h3>
-    <p id="personalStatement"></p>
+<div class="socials">
+<a class="glass social-pill" href="https://www.linkedin.com/in/ayomikun-labinjo" target="_blank">LinkedIn</a>
+<a class="glass social-pill" href="https://instagram.com/labz365" target="_blank">Instagram</a>
+<a class="glass social-pill" href="https://www.tiktok.com/@labz.365" target="_blank">TikTok</a>
+<a class="glass social-pill" href="https://www.youtube.com/@LABZ365" target="_blank">YouTube</a>
+</div>
 
-    <h3 style="margin-top:24px;">Experience</h3>
-    <div id="experienceContainer"></div>
-  </div>
+<div class="profile-details">
+<h3>Personal Statement</h3>
+<p>
+A proactive and analytical aeronautical engineering undergraduate with strong
+technical aptitude and hands-on experience in IT support, digital workflow
+management, and academic tutoring. Skilled in problem-solving, system
+organisation, and simplifying complex information. Reliable, adaptable,
+self-motivated, and consistent in fast-paced environments.
+</p>
+
+<h3 style="margin-top:30px">Experience</h3>
+<div id="experience"></div>
+</div>
 </section>
 
-<!-- ===== SKILLS ===== -->
 <section>
-  <h2>Skills</h2>
-  <div class="skills" id="skillsContainer"></div>
+<h2>Skills</h2>
+<div class="skills" id="skills"></div>
 </section>
 
 <section id="projects">
-  <h2>Projects</h2>
-  <div class="projects-grid" id="projectsGrid"></div>
+<h2>Projects</h2>
+<div class="projects" id="projectsGrid"></div>
 </section>
 
 <section id="youtube">
-  <h2>Latest Content — Labz365</h2>
-  <div class="video-grid">
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
-  </div>
+<h2>Latest Content — LABZ365</h2>
+<div class="projects">
+<iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
+<iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
+</div>
 </section>
 
-<footer>
-  © 2026 Ayomikun Labinjo — Blue Eclipse
-</footer>
+<footer>© 2026 Ayomikun Labinjo — Blue Eclipse</footer>
 
 <script>
-  /* ===== SCROLL REVEAL ===== */
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add("visible");
-    });
-  }, { threshold: 0.15 });
+/* ===== REVEAL ===== */
+const io=new IntersectionObserver(e=>e.forEach(i=>i.isIntersecting&&i.target.classList.add("visible")),{threshold:.15});
+document.querySelectorAll("section").forEach(s=>io.observe(s));
 
-  document.querySelectorAll("section").forEach(sec => observer.observe(sec));
+/* ===== HERO TOGGLE ===== */
+profile.onclick=()=>profile.classList.toggle("active");
 
-  /* ===== PROFILE DATA ===== */
-  const personalStatementText = `A proactive and analytical aeronautical engineering undergraduate with strong technical aptitude and hands-on experience in IT support, digital workflow management, and academic tutoring. Skilled in problem-solving, system organisation, and simplifying complex information.
+/* ===== EXPERIENCE DATA ===== */
+const exp=[
+{r:"IT Support Assistant — Caremark",d:"2025 – Present",p:["Technical support","Digital transformation","Cloud systems"]},
+{r:"Private Mathematics Tutor",d:"2023 – 2025",p:["Personalised tutoring","Progress tracking"]},
+{r:"Rolls-Royce Finance Virtual Experience",d:"2026",p:["Investment analysis","Risk modelling"]},
+{r:"Barclays Software Engineering Taster",d:"2026",p:["Database design","Schema planning"]},
+{r:"Airbus Aerospace Virtual Experience",d:"2024",p:["Aviation safety","Independent research"]}
+];
 
-Reliable, adaptable, and self-motivated, with a consistent record of delivering high-quality work in fast-paced environments. Seeking a role where I can apply my technical capability, communication skills, and strong work ethic while continuing to grow professionally.`;
+exp.forEach(e=>{
+experience.innerHTML+=`
+<div class="experience-item">
+<strong>${e.r}</strong><br><span>${e.d}</span>
+<ul>${e.p.map(x=>`<li>${x}</li>`).join("")}</ul>
+</div>`;
+});
 
-  const experienceData = [
-    {
-      role: "IT Support Assistant — Caremark Tunbridge Wells",
-      date: "July 2025 – Present",
-      points: [
-        "Provide day-to-day technical support, resolving system and software issues",
-        "Lead digital transformation through document digitisation and restructuring",
-        "Maintain cloud-based filing systems and manage user access",
-        "Tools: AccessEvo, Microsoft Office"
-      ]
-    },
-    {
-      role: "Private Mathematics Tutor — Self-Employed",
-      date: "Sept 2023 – Sept 2025",
-      points: [
-        "Delivered personalised tutoring across multiple levels",
-        "Designed custom lesson plans tailored to learning styles",
-        "Tracked student progress and communicated with parents"
-      ]
-    },
-    {
-      role: "Rolls-Royce — Finance Virtual Experience",
-      date: "Jan 2026",
-      points: [
-        "Analysed investment decisions and financial risk",
-        "Explored performance reporting and financial planning"
-      ]
-    },
-    {
-      role: "Barclays — Software Engineering Virtual Taster",
-      date: "Jan 2026",
-      points: [
-        "Designed a database solution for a productivity application",
-        "Selected database engines and schema designs"
-      ]
-    },
-    {
-      role: "Airbus — Aerospace Virtual Experience",
-      date: "May 2024 – Dec 2024",
-      points: [
-        "Completed aviation safety and design modules",
-        "Conducted independent research with strong initiative"
-      ]
-    }
-  ];
+/* ===== SKILLS ===== */
+const skills=[
+["Mathematical Analysis","Engineering-level maths","Used in aerodynamics & tutoring"],
+["OOP","Structured software design","Java & Python projects"],
+["CAD","3D modelling","Mechanical visualisation"],
+["Python","Automation & analysis","Simulations"],
+["Matlab","Numerical computing","Engineering analysis"],
+["LaTeX","Technical documentation","Professional reports"]
+];
 
-  document.getElementById("personalStatement").textContent = personalStatementText;
+skills.forEach(s=>{
+skillsEl=`<div class="skill glass" onclick="this.classList.toggle('active')">
+<strong>${s[0]}</strong>
+<div class="skill-preview">${s[1]}</div>
+<div class="skill-detail">${s[2]}</div>
+</div>`;
+document.getElementById("skills").innerHTML+=skillsEl;
+});
 
-  const expContainer = document.getElementById("experienceContainer");
-  experienceData.forEach(exp => {
-    const div = document.createElement("div");
-    div.className = "experience-item";
-    div.innerHTML = `
-      <strong>${exp.role}</strong><br>
-      <span>${exp.date}</span>
-      <ul>${exp.points.map(p => `<li>${p}</li>`).join("")}</ul>
-    `;
-    expContainer.appendChild(div);
-  });
+/* ===== PROJECTS (ADD HERE ONLY) ===== */
+const projectData=[
+{t:"Aerodynamics Study",d:"Independent airflow research",p:"your-pdf.pdf"},
+{t:"Finance Simulation",d:"Rolls-Royce virtual project",p:"your-pdf.pdf"}
+];
 
-  document.getElementById("profileCard")
-    .addEventListener("click", () =>
-      document.getElementById("profileCard").classList.toggle("active")
-    );
-
-  /* ===== SKILLS ===== */
-  const skillData = [
-    { name: "Mathematical Analysis", explanation: "Advanced calculus and algebra.", usage: "Used in aeronautical modules and tutoring." },
-    { name: "Aeronautical Mechanics", explanation: "Forces and aircraft motion.", usage: "Applied in coursework and Airbus experience." },
-    { name: "OOP", explanation: "Object-oriented design.", usage: "Used in Java and Python projects." },
-    { name: "CAD", explanation: "3D modelling and design.", usage: "Used to visualise mechanical components." },
-    { name: "Dart", explanation: "Modern UI language.", usage: "Used in app development." },
-    { name: "Java", explanation: "Strongly-typed OOP.", usage: "Academic programming tasks." },
-    { name: "Python", explanation: "Scripting and analysis.", usage: "Automation and simulations." },
-    { name: "Matlab", explanation: "Numerical computing.", usage: "Engineering analysis." },
-    { name: "LaTeX", explanation: "Technical typesetting.", usage: "Professional reports." }
-  ];
-
-  const skillsContainer = document.getElementById("skillsContainer");
-  skillData.forEach(skill => {
-    const card = document.createElement("div");
-    card.className = "skill-card";
-    card.innerHTML = `
-      <div class="skill-title">${skill.name}</div>
-      <div class="skill-details">
-        <strong>What it is:</strong> ${skill.explanation}<br><br>
-        <strong>How I use it:</strong> ${skill.usage}
-      </div>
-    `;
-    card.onclick = () => card.classList.toggle("active");
-    skillsContainer.appendChild(card);
-  });
-
-  /* ===== PROJECTS ===== */
-  const projectData = [
-    { title: "Aerodynamics Research Paper", description: "Independent airflow study.", pdf: "your-pdf-link-here.pdf" },
-    { title: "Finance Simulation Report", description: "Rolls-Royce analysis.", pdf: "your-pdf-link-here.pdf" }
-  ];
-
-  const grid = document.getElementById("projectsGrid");
-  projectData.forEach(p => {
-    const c = document.createElement("div");
-    c.className = "project-card glass";
-    c.innerHTML = `<h3>${p.title}</h3><p>${p.description}</p><button onclick="window.open('${p.pdf}')">View PDF</button>`;
-    grid.appendChild(c);
-  });
+projectData.forEach(p=>{
+projectsGrid.innerHTML+=`
+<div class="project glass">
+<h3>${p.t}</h3><p>${p.d}</p>
+<button onclick="window.open('${p.p}')">View PDF</button>
+</div>`;
+});
 </script>
 
 </body>
