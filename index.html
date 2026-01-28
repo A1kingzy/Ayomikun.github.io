@@ -7,35 +7,49 @@
 
 <style>
 :root{
---deep:#0F0E47;--navy:#272757;--lav:#8686AC;--steel:#505081;
---glass:rgba(255,255,255,.08);--border:rgba(255,255,255,.18);
---txt:#fff;--sub:#cfd0ff;
+  --bg:#f9f9f9;
+  --glass:rgba(255,255,255,0.6);
+  --border:rgba(0,0,0,0.1);
+  --txt:#1c1c1c;
+  --sub:#555;
+  --accent:#007aff; /* Apple-style blue */
+  --pill-bg:#ffffff;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,sans-serif;
-background:linear-gradient(135deg,var(--deep),var(--navy));
-color:var(--txt);overflow-x:hidden
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
+  overflow-x:hidden;
 }
 a{text-decoration:none;color:inherit}
 
 .glass{
-background:var(--glass);
-backdrop-filter:blur(16px);
-border:1px solid var(--border);
-border-radius:22px;
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border:1px solid var(--border);
+  border-radius:22px;
 }
 
 nav{
-position:sticky;top:16px;margin:auto;
-max-width:1200px;padding:14px 28px;
-display:flex;justify-content:space-between;align-items:center;z-index:100
+  position:sticky;
+  top:16px;
+  margin:auto;
+  max-width:1200px;
+  padding:14px 28px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:100;
 }
 
 section{
-max-width:1200px;margin:90px auto;padding:0 24px;
-opacity:0;transform:translateY(30px) scale(.96);
-transition:all .9s cubic-bezier(.22,1,.36,1)
+  max-width:1200px;
+  margin:90px auto;
+  padding:0 24px;
+  opacity:0;
+  transform:translateY(30px) scale(.96);
+  transition:all .9s cubic-bezier(.22,1,.36,1);
 }
 section.visible{opacity:1;transform:none}
 
@@ -45,82 +59,108 @@ h2{margin-bottom:28px}
 /* ===== HERO ===== */
 .hero{text-align:center;padding:90px 40px;cursor:pointer;position:relative}
 .hero-summary{
-font-size:.9rem;color:var(--lav);margin-top:12px;
-opacity:0;transition:.3s
+  font-size:.9rem;
+  color:var(--sub);
+  margin-top:12px;
+  opacity:0;
+  transition:.3s
 }
 .hero:hover .hero-summary{opacity:1}
 
 .profile-details{
-margin-top:40px;text-align:left;
-max-height:0;opacity:0;overflow:hidden;
-transition:all .8s cubic-bezier(.22,1,.36,1)
+  margin-top:40px;
+  text-align:left;
+  max-height:0;
+  opacity:0;
+  overflow:hidden;
+  transition:all .8s cubic-bezier(.22,1,.36,1)
 }
 .hero.active .profile-details{max-height:4000px;opacity:1}
 
 /* ===== SOCIAL ===== */
 .socials{
-margin-top:30px;display:flex;gap:14px;justify-content:center
+  margin-top:30px;
+  display:flex;
+  gap:14px;
+  justify-content:center
 }
 .social-pill{
-padding:10px 18px;border-radius:999px;font-size:.85rem;
-transition:.25s
+  padding:10px 18px;
+  border-radius:999px;
+  font-size:.85rem;
+  background:var(--pill-bg);
+  border:1px solid var(--border);
+  color:var(--accent);
+  transition:.25s;
 }
 .social-pill:hover{transform:scale(1.1)}
 
 /* ===== EXPERIENCE ===== */
 .experience-item{
-margin-bottom:28px;position:relative
+  margin-bottom:28px;
+  position:relative;
 }
-.experience-item span{color:var(--lav);font-size:.85rem}
+.experience-item span{color:var(--sub);font-size:.85rem}
 .experience-item li{color:var(--sub);font-size:.9rem;margin-top:6px}
 
 /* ===== SKILLS ===== */
 .skills{
-display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px
 }
 .skill{
-padding:20px;cursor:pointer;position:relative;
-transition:.35s cubic-bezier(.22,1,.36,1)
+  padding:20px;
+  cursor:pointer;
+  position:relative;
+  background:var(--pill-bg);
+  border:1px solid var(--border);
+  border-radius:16px;
+  transition:.35s cubic-bezier(.22,1,.36,1)
 }
 .skill:hover{transform:scale(1.07)}
 .skill-preview{
-font-size:.8rem;color:var(--lav);margin-top:6px;
-opacity:0;transition:.25s
+  font-size:.8rem;color:var(--sub);margin-top:6px;
+  opacity:0;transition:.25s
 }
 .skill:hover .skill-preview{opacity:1}
 .skill-detail{
-margin-top:12px;font-size:.85rem;color:var(--sub);
-max-height:0;opacity:0;overflow:hidden;transition:.4s
+  margin-top:12px;font-size:.85rem;color:var(--sub);
+  max-height:0;opacity:0;overflow:hidden;transition:.4s
 }
 .skill.active .skill-detail{max-height:300px;opacity:1}
 
 /* ===== PROJECTS ===== */
 .projects{
-display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:26px
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:26px
 }
 .project{
-padding:26px;transition:.35s
+  padding:26px;
+  transition:.35s;
+  background:var(--pill-bg);
+  border:1px solid var(--border);
+  border-radius:16px;
 }
 .project:hover{transform:scale(1.05)}
 button{
-margin-top:18px;padding:10px;border:none;
-border-radius:12px;background:var(--steel);color:#fff;cursor:pointer
+  margin-top:18px;padding:10px;border:none;
+  border-radius:12px;background:var(--accent);color:#fff;cursor:pointer
 }
 
 /* ===== FOOTER ===== */
-footer{text-align:center;margin:90px 0 40px;color:var(--lav)}
+footer{text-align:center;margin:90px 0 40px;color:var(--sub)}
 </style>
 </head>
 
 <body>
 
 <nav class="glass">
-<strong>Ayo's Personal Webpage</strong>
+<strong>Ayo's Personal Website</strong>
 <div>
-<a href="#projects">Projects</a>
-<a href="#youtube" style="margin-left:20px">YouTube</a>
+  <a href="#projects">Projects</a>
+  <a href="#youtube" style="margin-left:20px">YouTube</a>
 </div>
 </nav>
 
@@ -130,10 +170,10 @@ footer{text-align:center;margin:90px 0 40px;color:var(--lav)}
 <div class="hero-summary">Hover for overview · Click for full profile</div>
 
 <div class="socials">
-<a class="glass social-pill" href="https://www.linkedin.com/in/ayomikun-labinjo" target="_blank">LinkedIn</a>
-<a class="glass social-pill" href="https://instagram.com/labz365" target="_blank">Instagram</a>
-<a class="glass social-pill" href="https://www.tiktok.com/@labz.365" target="_blank">TikTok</a>
-<a class="glass social-pill" href="https://www.youtube.com/@LABZ365" target="_blank">YouTube</a>
+<a class="social-pill" href="https://www.linkedin.com/in/ayomikun-labinjo" target="_blank">LinkedIn</a>
+<a class="social-pill" href="https://instagram.com/labz365" target="_blank">Instagram</a>
+<a class="social-pill" href="https://www.tiktok.com/@labz.365" target="_blank">TikTok</a>
+<a class="social-pill" href="https://www.youtube.com/@LABZ365" target="_blank">YouTube</a>
 </div>
 
 <div class="profile-details">
@@ -164,70 +204,78 @@ self-motivated, and consistent in fast-paced environments.
 <section id="youtube">
 <h2>Latest Content — LABZ365</h2>
 <div class="projects">
-<iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
-<iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
+<iframe src="https://www.youtube.com/embed/VIDEO_ID" width="100%" height="180"></iframe>
+<iframe src="https://www.youtube.com/embed/VIDEO_ID" width="100%" height="180"></iframe>
 </div>
 </section>
 
-<footer>© 2026 Ayomikun Labinjo — Blue Eclipse</footer>
+<footer>© 2026 Ayomikun Labinjo — Personal Website</footer>
 
 <script>
 /* ===== REVEAL ===== */
-const io=new IntersectionObserver(e=>e.forEach(i=>i.isIntersecting&&i.target.classList.add("visible")),{threshold:.15});
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add("visible");
+  });
+},{threshold:.15});
 document.querySelectorAll("section").forEach(s=>io.observe(s));
 
 /* ===== HERO TOGGLE ===== */
-profile.onclick=()=>profile.classList.toggle("active");
+document.getElementById("profile").onclick = ()=>document.getElementById("profile").classList.toggle("active");
 
 /* ===== EXPERIENCE DATA ===== */
+const experienceEl = document.getElementById("experience");
 const exp=[
-{r:"IT Support Assistant — Caremark",d:"2025 – Present",p:["Technical support","Digital transformation","Cloud systems"]},
-{r:"Private Mathematics Tutor",d:"2023 – 2025",p:["Personalised tutoring","Progress tracking"]},
-{r:"Rolls-Royce Finance Virtual Experience",d:"2026",p:["Investment analysis","Risk modelling"]},
-{r:"Barclays Software Engineering Taster",d:"2026",p:["Database design","Schema planning"]},
-{r:"Airbus Aerospace Virtual Experience",d:"2024",p:["Aviation safety","Independent research"]}
+  {r:"IT Support Assistant — Caremark",d:"2025 – Present",p:["Technical support","Digital transformation","Cloud systems"]},
+  {r:"Private Mathematics Tutor",d:"2023 – 2025",p:["Personalised tutoring","Progress tracking"]},
+  {r:"Rolls-Royce Finance Virtual Experience",d:"2026",p:["Investment analysis","Risk modelling"]},
+  {r:"Barclays Software Engineering Taster",d:"2026",p:["Database design","Schema planning"]},
+  {r:"Airbus Aerospace Virtual Experience",d:"2024",p:["Aviation safety","Independent research"]}
 ];
 
 exp.forEach(e=>{
-experience.innerHTML+=`
-<div class="experience-item">
-<strong>${e.r}</strong><br><span>${e.d}</span>
-<ul>${e.p.map(x=>`<li>${x}</li>`).join("")}</ul>
-</div>`;
+  experienceEl.innerHTML += `
+  <div class="experience-item">
+    <strong>${e.r}</strong><br><span>${e.d}</span>
+    <ul>${e.p.map(x=>`<li>${x}</li>`).join("")}</ul>
+  </div>`;
 });
 
 /* ===== SKILLS ===== */
+const skillsElContainer = document.getElementById("skills");
 const skills=[
-["Mathematical Analysis","Engineering-level maths","Advanced mathematics used throughout engineering"],
-["OOP","Structured software design","Java & Python projects"],
-["CAD","3D modelling","Mechanical visualisation"],
-["Python","Automation & analysis","Simulations"],
-["Matlab","Numerical computing","Engineering analysis"],
-["LaTeX","Technical documentation","Professional reports"]
+  ["Mathematical Analysis","Engineering-level maths","Used in aerodynamics & tutoring"],
+  ["OOP","Structured software design","Java & Python projects"],
+  ["CAD","3D modelling","Mechanical visualisation"],
+  ["Python","Automation & analysis","Simulations"],
+  ["Matlab","Numerical computing","Engineering analysis"],
+  ["LaTeX","Technical documentation","Professional reports"]
 ];
 
 skills.forEach(s=>{
-skillsEl=`<div class="skill glass" onclick="this.classList.toggle('active')">
-<strong>${s[0]}</strong>
-<div class="skill-preview">${s[1]}</div>
-<div class="skill-detail">${s[2]}</div>
-</div>`;
-document.getElementById("skills").innerHTML+=skillsEl;
+  skillsElContainer.innerHTML += `
+  <div class="skill" onclick="this.classList.toggle('active')">
+    <strong>${s[0]}</strong>
+    <div class="skill-preview">${s[1]}</div>
+    <div class="skill-detail">${s[2]}</div>
+  </div>`;
 });
 
-/* ===== PROJECTS (ADD HERE ONLY) ===== */
+/* ===== PROJECTS ===== */
+const projectsGrid = document.getElementById("projectsGrid");
 const projectData=[
-{t:"Sixth-Form Extended Essay",d:"Investigating the effect of wire diameter on the tensile strength of wires of different material",p:"Ayo Labinjo - Copy of Physics Extended Essay template (3).pdf"},
-{t:"Physics IA",d:"The effect of the number of blades on a propeller on the force generated by the propeller.",p:"Ayo Labinjo - IA Template (2).pdf"}'
-{t:"Mathematics IA",d:"How accurately can the mass of a flywheel be calculated for a v8 engine using the engine specifications. ",p:"Maths IA V2 (5).pdf"}
+  {t:"Sixth-Form Extended Essay",d:"Investigating the effect of wire diameter on the tensile strength of wires of different material",p:"Physics Essay.pdf"},
+  {t:"Physics IA",d:"The effect of the number of blades on a propeller on the force generated.",p:"Physics IA.pdf"},
+  {t:"Mathematics IA",d:"Calculating the mass of a flywheel for a V8 engine using engine specs.",p:"Maths IA.pdf"}
 ];
 
 projectData.forEach(p=>{
-projectsGrid.innerHTML+=`
-<div class="project glass">
-<h3>${p.t}</h3><p>${p.d}</p>
-<button onclick="window.open('${p.p}')">View PDF</button>
-</div>`;
+  projectsGrid.innerHTML += `
+  <div class="project">
+    <h3>${p.t}</h3>
+    <p>${p.d}</p>
+    <button onclick="window.open('${p.p}')">View PDF</button>
+  </div>`;
 });
 </script>
 
