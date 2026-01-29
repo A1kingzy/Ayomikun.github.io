@@ -19,7 +19,7 @@
   --border: rgba(0, 0, 0, 0.1);
 }
 
-/* ===== DARK MODE VARIABLES (IMPROVED VISIBILITY) ===== */
+/* ===== DARK MODE VARIABLES ===== */
 body.dark {
   --primary: #E9ECEF;
   --secondary: #ADB5BD;
@@ -32,16 +32,13 @@ body.dark {
   --border: rgba(255, 255, 255, 0.12);
 }
 
-/* ===== GENERAL ===== */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
   background: var(--bg);
   color: var(--txt);
-  overflow-x: hidden;
   transition: all 0.3s ease;
 }
-a { text-decoration: none; color: inherit; }
 
 .glass {
   background: var(--glass);
@@ -50,18 +47,17 @@ a { text-decoration: none; color: inherit; }
   border-radius: 22px;
 }
 
-/* ===== NAVBAR ===== */
 nav {
   position: sticky;
   top: 16px;
-  margin: auto;
   max-width: 1200px;
+  margin: auto;
   padding: 14px 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 100;
 }
+
 .toggle-btn {
   padding: 6px 12px;
   border-radius: 12px;
@@ -71,87 +67,18 @@ nav {
   cursor: pointer;
 }
 
-/* ===== SECTIONS ===== */
 section {
   max-width: 1200px;
   margin: 90px auto;
   padding: 0 24px;
   opacity: 0;
-  transform: translateY(30px) scale(.96);
-  transition: all .9s cubic-bezier(.22,1,.36,1);
+  transform: translateY(30px);
+  transition: .8s;
 }
 section.visible { opacity: 1; transform: none; }
 
-h1 { font-size: clamp(2.4rem,4vw,3.2rem); color: var(--primary); }
-h2 { margin-bottom: 28px; color: var(--primary); }
-h3 { color: var(--secondary); }
-
-/* ===== HERO ===== */
 .hero { text-align: center; padding: 90px 40px; cursor: pointer; }
-.hero-summary {
-  font-size: .9rem;
-  color: var(--sub);
-  margin-top: 12px;
-  opacity: 0;
-  transition: .3s;
-}
-.hero:hover .hero-summary { opacity: 1; }
 
-.profile-details {
-  margin-top: 40px;
-  text-align: left;
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: .8s cubic-bezier(.22,1,.36,1);
-}
-.hero.active .profile-details { max-height: 4000px; opacity: 1; }
-
-/* ===== SOCIALS ===== */
-.socials-wrapper {
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-
-.socials {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-}
-
-.social-pill {
-  padding: 10px 18px;
-  border-radius: 999px;
-  font-size: .85rem;
-  background: var(--pill-bg);
-  border: 1px solid var(--border);
-  color: var(--accent);
-  transition: .25s;
-}
-.social-pill:hover { transform: scale(1.1); }
-
-/* ===== MOBILE HORIZONTAL SCROLL ===== */
-@media (max-width: 600px) {
-  .socials {
-    width: 100%;
-    overflow-x: auto;
-    white-space: nowrap;
-    justify-content: flex-start;
-    scrollbar-width: none;
-  }
-  .socials::-webkit-scrollbar { display: none; }
-  .social-pill { flex: 0 0 auto; }
-}
-
-/* ===== EXPERIENCE ===== */
-.experience-item { margin-bottom: 28px; }
-.experience-item span { color: var(--sub); font-size: .85rem; }
-.experience-item li { color: var(--sub); font-size: .9rem; }
-
-/* ===== SKILLS ===== */
 .skills {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
@@ -174,7 +101,6 @@ h3 { color: var(--secondary); }
 }
 .skill.active .skill-detail { max-height: 300px; }
 
-/* ===== PROJECTS ===== */
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
@@ -186,17 +112,7 @@ h3 { color: var(--secondary); }
   border: 1px solid var(--border);
   border-radius: 16px;
 }
-button {
-  margin-top: 18px;
-  padding: 10px;
-  border: none;
-  border-radius: 12px;
-  background: var(--accent);
-  color: #fff;
-  cursor: pointer;
-}
 
-/* ===== FOOTER ===== */
 footer { text-align: center; margin: 90px 0 40px; color: var(--sub); }
 </style>
 </head>
@@ -206,8 +122,6 @@ footer { text-align: center; margin: 90px 0 40px; color: var(--sub); }
 <nav class="glass">
   <strong>Ayo's Personal Website</strong>
   <div>
-    <a href="#projects">Projects</a>
-    <a href="#youtube" style="margin-left:20px">YouTube</a>
     <button class="toggle-btn" id="modeToggle">Dark Mode</button>
   </div>
 </nav>
@@ -215,29 +129,6 @@ footer { text-align: center; margin: 90px 0 40px; color: var(--sub); }
 <section class="hero glass" id="profile">
   <h1>Ayomikun Labinjo</h1>
   <p>Aeronautical Engineering Student</p>
-  <div class="hero-summary">Hover for overview · Click for full profile</div>
-
-  <div class="socials-wrapper">
-    <div class="socials">
-      <a class="social-pill" href="https://www.linkedin.com/in/ayomikun-labinjo" target="_blank">LinkedIn</a>
-      <a class="social-pill" href="https://instagram.com/labz365" target="_blank">Instagram</a>
-      <a class="social-pill" href="https://www.tiktok.com/@labz.365" target="_blank">TikTok</a>
-      <a class="social-pill" href="https://www.youtube.com/@LABZ365" target="_blank">YouTube</a>
-    </div>
-    <button class="social-pill" onclick="window.open('Resume.pdf')">Resume</button>
-  </div>
-
-  <div class="profile-details">
-    <h3>Personal Statement</h3>
-    <p>
-      A proactive and analytical aeronautical engineering undergraduate with strong
-      technical aptitude and hands-on experience in IT support, digital workflow
-      management, and academic tutoring.
-    </p>
-
-    <h3 style="margin-top:30px">Experience</h3>
-    <div id="experience"></div>
-  </div>
 </section>
 
 <section>
@@ -245,20 +136,7 @@ footer { text-align: center; margin: 90px 0 40px; color: var(--sub); }
   <div class="skills" id="skills"></div>
 </section>
 
-<section id="projects">
-  <h2>Projects</h2>
-  <div class="projects" id="projectsGrid"></div>
-</section>
-
-<section id="youtube">
-  <h2>Latest Content — LABZ365</h2>
-  <div class="projects">
-    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" width="100%" height="180"></iframe>
-    <iframe src="https://www.youtube.com/embed/3JZ_D3ELwOQ" width="100%" height="180"></iframe>
-  </div>
-</section>
-
-<footer>© 2026 Ayomikun Labinjo — Personal Website</footer>
+<footer>© 2026 Ayomikun Labinjo</footer>
 
 <script>
 /* ===== REVEAL ===== */
@@ -267,38 +145,18 @@ const io = new IntersectionObserver(entries=>{
 },{threshold:.15});
 document.querySelectorAll("section").forEach(s=>io.observe(s));
 
-/* ===== HERO TOGGLE ===== */
-profile.onclick = ()=>profile.classList.toggle("active");
-
-/* ===== EXPERIENCE ===== */
-const experienceEl = document.getElementById("experience");
-const exp = [
-  {r:"IT Support Assistant — Caremark",d:"2025 – Present",p:["Technical support","Digital transformation","Cloud systems"]},
-  {r:"Private Mathematics Tutor",d:"2023 – 2025",p:["Personalised tutoring","Progress tracking"]},
-  {r:"Rolls-Royce Finance Virtual Experience",d:"2026",p:["Investment analysis","Risk modelling"]},
-  {r:"Barclays Software Engineering Taster",d:"2026",p:["Database design","Schema planning"]},
-  {r:"Airbus Aerospace Virtual Experience",d:"2024",p:["Aviation safety","Independent research"]}
-];
-
-exp.forEach(e=>{
-  experienceEl.innerHTML += `
-    <div class="experience-item">
-      <strong>${e.r}</strong><br>
-      <span>${e.d}</span>
-      <ul>${e.p.map(x=>`<li>${x}</li>`).join("")}</ul>
-    </div>`;
-});
-
-/* ===== SKILLS ===== */
+/* ===== SKILLS (JAVA ADDED) ===== */
 const skillsEl = document.getElementById("skills");
 const skills = [
   ["Mathematical Analysis","Engineering-level maths","Used in aerodynamics & tutoring"],
+  ["Java","Object-Oriented Programming","Data structures, coursework & personal projects"],
   ["OOP","Structured software design","Java & Python projects"],
   ["CAD","3D modelling","Mechanical visualisation"],
   ["Python","Automation & analysis","Simulations"],
   ["Matlab","Numerical computing","Engineering analysis"],
   ["LaTeX","Technical documentation","Professional reports"]
 ];
+
 skills.forEach(s=>{
   skillsEl.innerHTML += `
     <div class="skill" onclick="this.classList.toggle('active')">
@@ -308,26 +166,11 @@ skills.forEach(s=>{
     </div>`;
 });
 
-/* ===== PROJECTS ===== */
-const projectsGrid = document.getElementById("projectsGrid");
-const projectData = [
-  {t:"Sixth-Form Extended Essay",d:"Investigating tensile strength",p:"Physics Essay.pdf"},
-  {t:"Physics IA",d:"Propeller blade analysis",p:"Physics IA.pdf"},
-  {t:"Mathematics IA",d:"Flywheel mass calculation",p:"Maths IA.pdf"}
-];
-projectData.forEach(p=>{
-  projectsGrid.innerHTML += `
-    <div class="project">
-      <h3>${p.t}</h3>
-      <p>${p.d}</p>
-      <button onclick="window.open('${p.p}')">View PDF</button>
-    </div>`;
-});
-
 /* ===== DARK MODE ===== */
 modeToggle.onclick=()=>{
   document.body.classList.toggle("dark");
-  modeToggle.textContent = document.body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+  modeToggle.textContent =
+    document.body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
 };
 </script>
 
