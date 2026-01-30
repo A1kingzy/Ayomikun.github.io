@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- =========================
-     HEAD / META / STYLES
-========================= -->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -250,9 +247,6 @@
 
 <body>
 
-<!-- =========================
-     NAVIGATION BAR
-========================= -->
 <nav class="glass">
   <strong>Ayo's Personal Website</strong>
   <div>
@@ -262,9 +256,6 @@
   </div>
 </nav>
 
-<!-- =========================
-     HERO / PROFILE SECTION
-========================= -->
 <section class="hero glass" id="profile">
   <h1>Ayomikun Labinjo</h1>
   <p>Aeronautical Engineering Student</p>
@@ -293,25 +284,16 @@
   </div>
 </section>
 
-<!-- =========================
-     SKILLS SECTION
-========================= -->
 <section>
   <h2>Skills</h2>
   <div class="skills" id="skills"></div>
 </section>
 
-<!-- =========================
-     PROJECTS SECTION
-========================= -->
 <section id="Additional Documents">
   <h2>Additional Documents</h2>
   <div class="projects" id="projectsGrid"></div>
 </section>
 
-<!-- =========================
-     YOUTUBE SECTION
-========================= -->
 <section id="youtube">
   <h2>Latest Content — LABZ365</h2>
   <div class="projects">
@@ -322,9 +304,6 @@
 
 <footer>© 2026 Ayomikun Labinjo — Personal Website</footer>
 
-<!-- =========================
-     JAVASCRIPT LOGIC
-========================= -->
 <script>
 /* ===== SECTION REVEAL ON SCROLL ===== */
 const io = new IntersectionObserver(entries => {
@@ -375,11 +354,11 @@ skills.forEach(s => {
     </div>`;
 });
 
-/* ===== PROJECTS DATA ===== */
+/* ===== PROJECTS DATA (FIXED ERROR HERE) ===== */
 const projectsGrid = document.getElementById("projectsGrid");
 const projectData = [
-  { { t:"Physics IA", d:"Propeller blade analysis", p:"Physics IA.pdf" },
-     {t:"Sixth-Form Extended Essay", d:"Investigating tensile strength", p:"Physics Essay.pdf" },
+  { t:"Physics IA", d:"Propeller blade analysis", p:"Physics IA.pdf" },
+  { t:"Sixth-Form Extended Essay", d:"Investigating tensile strength", p:"Physics Essay.pdf" },
   { t:"Mathematics IA", d:"Flywheel mass calculation", p:"Maths IA.pdf" }
 ];
 
@@ -400,7 +379,6 @@ modeToggle.onclick = () => {
 };
 </script>
 
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XYHF4E8G4Y"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
