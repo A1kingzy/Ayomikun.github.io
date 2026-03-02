@@ -1,0 +1,1168 @@
+ 
+
+
+
+3D Printer Assistant Robotic Arm — Full Build Guide
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --accent: #FF6B35;
+    --accent2: #2EC4B6;
+    --dark: #1a1a2e;
+    --mid: #16213e;
+    --light: #0f3460;
+    --text: #e0e0e0;
+    --muted: #a0a0b0;
+    --white: #ffffff;
+    --warn: #FFD166;
+    --danger: #EF476F;
+    --success: #06D6A0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f4f6f9;
+    color: #1a1a2e;
+    font-size: 11pt;
+    line-height: 1.8;
+    overflow-wrap: break-word;
+  }
+
+  /* COVER PAGE */
+  .cover {
+    background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 50%, #16213e 100%);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+    page-break-after: always;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,107,53,0.15);
+    top: -200px; right: -200px;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(46,196,182,0.15);
+    bottom: -150px; left: -150px;
+  }
+
+  .cover-badge {
+    background: rgba(255,107,53,0.2);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 9pt;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  .cover h1 {
+    font-size: 42pt;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #fff 30%, #FF6B35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .cover-sub {
+    font-size: 14pt;
+    color: rgba(255,255,255,0.7);
+    max-width: 500px;
+    margin-bottom: 50px;
+  }
+
+  .cover-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 28pt;
+    font-weight: 900;
+    color: var(--accent);
+    display: block;
+  }
+  .stat-label {
+    font-size: 8pt;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .cover-divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    margin: 30px auto;
+    border-radius: 2px;
+  }
+
+  /* PAGE WRAPPER */
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 50px 60px;
+    background: white;
+    margin-bottom: 0;
+  }
+
+  .page-break { page-break-before: always; }
+
+  @media print {
+    .page { padding: 30px 40px; }
+    .cover { min-height: 100vh; }
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 40px 0 20px 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  .section-num {
+    background: linear-gradient(135deg, var(--accent), #ff8c42);
+    color: white;
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13pt;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+
+  h3 {
+    font-size: 12pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 24px 0 10px 0;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+
+  p { margin-bottom: 10px; color: #333; }
+
+  /* TABLES */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 10pt;
+  }
+
+  th {
+    background: #1a1a2e;
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 9pt;
+    letter-spacing: 0.5px;
+  }
+
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: #fafafa; }
+  tr:hover td { background: #fff5f0; }
+
+  .total-row td {
+    background: linear-gradient(135deg, #fff5f0, #fff8f5) !important;
+    font-weight: 700;
+    color: var(--accent);
+    border-top: 2px solid var(--accent);
+    font-size: 11pt;
+  }
+
+  /* CALLOUT BOXES */
+  .callout {
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .callout-icon { font-size: 18pt; flex-shrink: 0; margin-top: 2px; }
+  .callout-content { flex: 1; }
+  .callout-title { font-weight: 700; margin-bottom: 4px; font-size: 10pt; }
+  .callout-text { font-size: 10pt; color: #444; margin: 0; }
+
+  .callout-warn { background: #fffbeb; border: 1px solid #f59e0b; }
+  .callout-warn .callout-title { color: #b45309; }
+
+  .callout-danger { background: #fff1f3; border: 1px solid var(--danger); }
+  .callout-danger .callout-title { color: #be123c; }
+
+  .callout-tip { background: #f0fdf4; border: 1px solid var(--success); }
+  .callout-tip .callout-title { color: #065f46; }
+
+  .callout-info { background: #eff6ff; border: 1px solid #3b82f6; }
+  .callout-info .callout-title { color: #1d4ed8; }
+
+  /* DIAGRAM BOXES */
+  .diagram {
+    background: #1a1a2e;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+    font-family: 'JetBrains Mono', monospace;
+    color: #e0e0e0;
+    font-size: 9pt;
+    line-height: 2.2;
+    overflow-x: auto;
+  }
+
+  .diagram .comment { color: #6b7280; }
+  .diagram .highlight { color: var(--accent); font-weight: 600; }
+  .diagram .green { color: var(--success); }
+  .diagram .blue { color: #60a5fa; }
+  .diagram .yellow { color: var(--warn); }
+
+  /* STEP BOXES */
+  .steps { margin: 16px 0; }
+
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    background: linear-gradient(135deg, #1a1a2e, #0f3460);
+    color: white;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 10pt;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-content h4 {
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #1a1a2e;
+  }
+
+  .step-content p { margin: 0; font-size: 10pt; }
+
+  /* TAGS */
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .tag-required { background: #fee2e2; color: #dc2626; }
+  .tag-optional { background: #dbeafe; color: #1d4ed8; }
+  .tag-critical { background: #fef3c7; color: #b45309; }
+
+  /* SPEC CARDS */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .spec-card {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 14px;
+  }
+
+  .spec-card-title {
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .spec-card-value {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+
+  .spec-card-sub {
+    font-size: 8pt;
+    color: #888;
+    margin-top: 2px;
+  }
+
+  /* TOC */
+  .toc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dotted #ddd;
+  }
+
+  .toc-item:last-child { border-bottom: none; }
+  .toc-section { font-weight: 600; color: #1a1a2e; }
+  .toc-page { color: var(--accent); font-weight: 700; }
+
+  /* COMPATIBILITY MATRIX */
+  .compat-cell-ok { background: #d1fae5; color: #065f46; font-weight: 700; text-align: center; }
+  .compat-cell-warn { background: #fef3c7; color: #92400e; font-weight: 700; text-align: center; }
+
+  /* FOOTER */
+  .footer {
+    background: #1a1a2e;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 20px;
+    font-size: 8pt;
+    letter-spacing: 1px;
+  }
+
+  ul { padding-left: 20px; margin-bottom: 10px; }
+  li { margin-bottom: 4px; font-size: 10pt; color: #333; }
+
+  /* .page-break { page-break-before: always; height: 0; } */
+
+  .highlight-box {
+    background: linear-gradient(135deg, #fff5f0, #fff8f5);
+    border: 1px solid #ffccb0;
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 16px 0;
+  }
+
+  .constraint-card {
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .constraint-header {
+    background: #1a1a2e;
+    color: white;
+    padding: 10px 16px;
+    font-weight: 700;
+    font-size: 10pt;
+  }
+
+  .constraint-body {
+    padding: 12px 16px;
+  }
+
+  .constraint-body ul { margin: 0; }
+
+
+
+
+
+
+  Complete Build Guide
+  3D PrinterAssistant Arm
+  Full parts list, design constraints, wiring diagrams, step-by-step build guide & cost breakdown
+  
+  
+    
+      6+1
+      Servo Motors
+    
+    
+      ~£66
+      Total Cost
+    
+    
+      6
+      DOF
+    
+    
+      BT
+      Android Tablet
+    
+  
+
+
+
+
+  
+    📋
+    Table of Contents
+  
+
+  1. System Overview & Architecture→
+  2. Full Parts List→
+  3. Cost Breakdown→
+  4. Compatibility Matrix→
+  5. 3D Modelling Design Constraints→
+  6. Wiring & Power Diagrams→
+  7. Step-by-Step Build Guide→
+  8. Software Architecture→
+  9. Safety & LiPo Guidelines→
+
+  
+  
+    1
+    System Overview & Architecture
+  
+
+  This arm is designed to sit beside your 3D printer and automatically remove finished prints from the bed, allowing fully unattended batch printing. The Android tablet acts as the brain, monitoring printer status and sending Bluetooth commands to the ESP32 which drives all servo motors.
+
+  High-Level Architecture
+  
+    ┌─────────────────────────────────────────────────────────┐
+    │                    SYSTEM OVERVIEW                       │
+    └─────────────────────────────────────────────────────────┘
+    
+      [Android Tablet]
+           │  Monitors OctoPrint/Slicer API for print completion
+           │  Runs camera feed to confirm print present
+           │  Sends BT commands: REMOVE_PRINT / HOME / STATUS
+           │
+           │  ◄── Bluetooth Classic / BLE ──►
+           │
+      [ESP32 DevKit]   ← receives commands, runs IK, drives PWM
+           │
+           ├── I2C ──► [PCA9685 PWM Driver]
+           │                │
+           │         CH0 ──► Base Servo (20KG)
+           │         CH1 ──► Shoulder Servo (20KG)
+           │         CH2 ──► Elbow Servo (9g)
+           │         CH3 ──► Wrist Pitch (9g)
+           │         CH4 ──► Wrist Roll (9g)
+           │         CH5 ──► Gripper Servo (9g)
+           │
+      [3S LiPo 3000mAh]
+           ├── 11.1V ──► [XL4016 Buck → 6V 10A] ──► PCA9685 V+
+           └── 11.1V ──► [Mini Buck → 5V 1A]   ──► ESP32 VIN
+  
+
+  
+    
+      Degrees of Freedom
+      5+1
+      5 arm + gripper open/close
+    
+    
+      Estimated Reach
+      ~35cm
+      Enough for most print beds
+    
+    
+      Payload Capacity
+      ~300g
+      Typical FDM print weight
+    
+    
+      Control
+      Bluetooth
+      Android tablet → ESP32
+    
+    
+      Power Source
+      3S LiPo
+      11.1V → regulated 6V
+    
+    
+      Servo Voltage
+      6V
+      Both servo types compatible
+    
+  
+
+
+
+
+  
+    2
+    Full Parts List
+  
+
+  You Already Have
+  
+    
+      ComponentModel / SpecQtyNotes
+    
+    Small Servo MotorsMiuzei 9g Metal Gearbox64.8V–6V, for elbow, wrist, gripper
+    High-Torque ServoMiuzei DS3218MG 20KG 270°1For base rotation — most critical joint
+    3D PrinterAny FDM printer1For printing all structural arm links
+    Android TabletAny Android 8+1Bluetooth + camera + OctoPrint interface
+  
+
+  Electronics — To Buy
+  
+    
+      ComponentModel / SpecQtyPriorityEst. Cost
+    
+    MicrocontrollerESP32 DevKit V1 (38-pin)1Required£6
+    PWM Servo DriverPCA9685 16-Channel I2C1Required£4
+    High-Current BuckXL4016 DC-DC Step Down, 8A min rated1Required£7
+    Small Buck (ESP32)Mini DC-DC Step Down, 5V 3A1Required£3
+    Decoupling Capacitors1000µF 16V electrolytic (x3)3Required£2
+    Logic Level ConverterBidirectional 5V↔3.3V (if needed)1Optional£2
+    ConnectorsXT60 pair (battery connector)2Required£3
+    Wiring22AWG silicone wire (red/black/yellow, 1m each)3mRequired£4
+    Breadboard / Perf BoardHalf-size breadboard or perfboard1Required£2
+  
+
+  Power — To Buy
+  
+    
+      ComponentModel / SpecQtyPriorityEst. Cost
+    
+    LiPo Battery3S 11.1V 3000mAh 25C minimum1Required£20
+    LiPo ChargerIMAX B6 or similar balance charger1Critical£15
+    LiPo Alarm / Buzzer3S Cell voltage alarm (balance lead)1Critical£3
+  
+
+  Hardware / Fasteners — To Buy
+  
+    
+      ComponentSpecQtyEst. Cost
+    
+    M3 Screw AssortmentM3 × 6mm, 10mm, 16mm, 20mm1 kit£4
+    M3 NutsStandard hex + nylon locking50 pcs£2
+    Servo Horns/BracketsMust match your servo spline (Miuzei 25T)10£4
+    Bearings608ZZ (skateboard bearings) for base joint2£3
+    Threaded InsertsM3 heat-set inserts for 3D printed parts30 pcs£3
+    Scraper Tool / AttachmentPutty knife blade (80mm) for prying prints1£2
+  
+
+  3D Printing Filament
+  
+    
+      MaterialUse CaseQty NeededEst. Cost
+    
+    PETG (preferred)Main structural links, brackets~500g£8
+    PLA (acceptable)Non-stress parts, covers~200g£3
+    
+      Note: PETG is preferred over PLA — it's tougher and more heat resistant near the printer
+      
+    
+  
+
+
+
+
+  
+    3
+    Cost Breakdown
+  
+
+  
+    
+      CategoryItemsCost
+    
+    You Already HaveServos (7x), tablet, printer£0
+    Microcontroller + DriverESP32 + PCA9685£10
+    Power RegulationXL4016 Buck + Mini Buck£10
+    Battery System3S LiPo + Charger + Alarm£38
+    Wiring & ConnectorsXT60, wire, caps, breadboard£11
+    HardwareScrews, bearings, inserts, horns£14
+    FilamentPETG + PLA£11
+    TOTAL~£94
+  
+
+  
+    💡
+    
+      Cost-Saving Tips
+      Buy the ESP32, PCA9685, capacitors, and buck converters as a bundle on AliExpress — often ~£12 total for all 4. LiPo charger is the biggest single cost but you'll use it for every future project. Skip the logic level converter initially — PCA9685 is 5V tolerant enough for testing.
+    
+  
+
+  
+  
+    4
+    Compatibility Matrix
+  
+
+  This table confirms all major components work together electrically and logically:
+
+  
+    
+      Component AComponent BInterfaceVoltageCompatible?
+    
+    ESP32 (3.3V)PCA9685I2C (SDA/SCL)3.3V / 5V tolerant✓ YES
+    PCA9685Miuzei 9g ServosPWM Signal3.3–5V signal, 6V power✓ YES
+    PCA9685DS3218MG 20KGPWM Signal3.3–5V signal, 6V power✓ YES
+    3S LiPo (11.1V)XL4016 BuckDC Input8–35V in → 6V out✓ YES
+    3S LiPo (11.1V)Mini Buck (5V)DC Input5.5–28V in → 5V out✓ YES
+    XL4016 6VMiuzei 9g ServosPower4.8–6V spec, 6V supplied✓ YES
+    XL4016 6VDS3218MG 20KGPower4.8–6.8V spec, 6V supplied✓ YES
+    Mini Buck 5VESP32 VINPower4.5–7V in accepted✓ YES
+    Android TabletESP32Bluetooth Classic/BLEN/A (wireless)✓ YES
+    Servo HornsMiuzei Servos (all)25T SplineN/A✓ YES — Miuzei uses 25T
+    M3 Heat InsertsPETG Printed PartsMechanicalN/A✓ YES — PETG ideal for inserts
+  
+
+  
+    ⚠️
+    
+      Important: Never Mix Power Rails
+      The 6V servo rail and the 5V ESP32 rail must be kept separate. Share only the GND. Connecting 6V directly to the ESP32 will destroy it permanently.
+    
+  
+
+
+
+
+  
+    5
+    3D Modelling Design Constraints
+  
+
+  These constraints must be respected when designing your arm links and brackets in CAD. Violating them will cause assembly failure, structural weakness, or servo damage.
+
+  
+    📐 Servo Mounting Geometry
+    
+      
+        Miuzei 9g servo body: 22.8mm × 12.5mm × 22mm (L×W×H). Add 0.3mm clearance on all sides for insertion.
+        DS3218MG body: 40.5mm × 20mm × 38mm. Significantly larger — design the base bracket accordingly.
+        Servo mounting screws: M2 × 10mm through the servo ears. Ears are 4mm wide with 2.2mm holes.
+        Horn-to-link connection: Design a recess/socket for the horn so rotation is constrained by the link geometry, not just the horn screw.
+        25T spline shaft diameter: 5.8mm — design any through-holes in links to match.
+      
+    
+  
+
+  
+    🧱 Print Settings & Material Rules
+    
+      
+        Infill: Minimum 40% for structural links, 20% acceptable for covers/aesthetics.
+        Infill pattern: Gyroid or honeycomb — superior strength-to-weight vs lines.
+        Wall count: Minimum 4 perimeters on all load-bearing parts.
+        Layer height: 0.2mm for structural parts, 0.15mm for fine holes and servo pockets.
+        Orientation: Print links so layer lines run along the length — avoid transverse layers at high-stress bends.
+        Heat-set insert holes: Use 4.2mm holes for M3 inserts in PETG (slightly undersized; the insert melts in).
+        No support required: Design link geometry with ≤45° overhangs or add built-in chamfers/bridges.
+      
+    
+  
+
+  
+    📏 Link Length & Torque Constraints
+    
+      
+        Upper arm (shoulder → elbow): Maximum 150mm. Beyond this, the 20KG servo torque becomes marginal with a full payload.
+        Forearm (elbow → wrist): Maximum 120mm. Uses 9g servo at elbow — keep it light.
+        Wrist to gripper tip: Maximum 80mm. Every mm here multiplies the torque demand on the wrist servo.
+        Torque budget check: Torque needed = (mass × distance from joint). At 150mm reach with 200g payload = 0.03 N·m. The 20KG servo provides ~2 N·m — plenty of margin.
+        Weight target: Each printed link should be under 80g. Weigh before assembly.
+      
+    
+  
+
+  
+    🔩 Base Design Requirements
+    
+      
+        Base must hold a 608ZZ bearing (22mm OD, 8mm ID) for smooth rotation. Design a 22.2mm press-fit pocket.
+        Base footprint minimum: 120mm × 120mm for stability. Include 4× M4 mounting holes on 100mm spacing.
+        Base must be bolted to a surface — the arm torque will tip it over if left free. Design for M4 bolts into a wooden base plate.
+        Cable routing: Include a 12mm channel through the base for wiring to pass through the rotation axis.
+      
+    
+  
+
+  
+    🤏 Gripper / Scraper Tool Constraints
+    
+      
+        Gripper mechanism: Use a single 9g servo driving a 4-bar linkage or rack-and-pinion for parallel jaw motion.
+        Jaw opening: Design for 0–60mm spread. Most prints fit within this range.
+        Scraper blade slot: 80mm × 1.5mm slot in one jaw to hold a putty knife blade for prying prints.
+        Jaw material: Print TPU on the gripping faces OR glue a rubber pad. Hard PETG jaws will crush/mark prints.
+        Clearance from print bed: Gripper tip must reach within 2mm of the print bed when the arm is fully extended.
+      
+    
+  
+
+  
+    🔌 Electronics Enclosure Constraints
+    
+      
+        ESP32 footprint: 51mm × 28mm. Needs 1mm clearance on USB side for programming access.
+        PCA9685 footprint: 62mm × 25mm.
+        Buck converters: XL4016 module: ~75mm × 45mm. Mini buck: ~22mm × 17mm.
+        Enclosure must be separate from arm — do not mount electronics in a moving link. Place at base or on a fixed side panel.
+        Ventilation slots: XL4016 gets warm under load — add 2mm slots above and below the module.
+        LiPo bay: Design a slide-in tray with XT60 socket. Allow 5mm extra on all sides of the battery pack (3S 3000mAh is typically 105mm × 35mm × 25mm).
+      
+    
+  
+
+
+
+
+  
+    6
+    Wiring & Power Diagrams
+  
+
+  Power Distribution Diagram
+  
+    ╔═══════════════════════════════════════════════════════════════╗
+    ║              POWER DISTRIBUTION (PORTABLE)                   ║
+    ╚═══════════════════════════════════════════════════════════════╝
+    
+      [3S LiPo 11.1V] ──XT60──► MAIN SWITCH
+                                      │
+                  ┌───────────────────┤
+                  │                   │
+        [XL4016 Buck]             [Mini Buck]
+         IN: 11.1V                IN: 11.1V
+         OUT: 6.0V 10A             OUT: 5.0V 1A
+             │                        │
+             │                        └──► ESP32 VIN pin
+             │                             ESP32 GND pin
+             │
+             └──► PCA9685 V+ (6V servo power)
+             └──► PCA9685 GND
+                  │
+                  ├── CH0 PWR ──► DS32181MG Base (RED + BROWN wires)
+                  ├── CH1 PWR ──► DS3218MG Shoulder
+                  ├── CH2 PWR ──► 9g Elbow
+                  ├── CH3 PWR ──► 9g Wrist Pitch
+                  ├── CH4 PWR ──► 9g Wrist Roll
+                  └── CH5 PWR ──► 9g Gripper
+    
+      ALL GNDs TIED TOGETHER: LiPo GND = Buck GND = ESP32 GND = PCA GND
+  
+
+  ESP32 ↔ PCA9685 I2C Wiring
+  
+    ╔════════════════════════════════════════════════╗
+    ║           I2C CONTROL WIRING                   ║
+    ╚════════════════════════════════════════════════╝
+    
+        ESP32 Pin          PCA9685 Pin
+        ─────────          ───────────
+        GPIO 21 (SDA)  ──► SDA
+        GPIO 22 (SCL)  ──► SCL
+        GND            ──► GND
+        3.3V           ──► VCC  (logic power ONLY)
+                                    │
+        6V Buck Rail   ──► V+   (servo motor power)
+    
+        ⚠ VCC and V+ are DIFFERENT pins on the PCA9685
+        ⚠ VCC = logic (3.3V from ESP32)
+        ⚠ V+  = servo power (6V from Buck)
+  
+
+  Servo Connector Pinout
+  
+    ╔══════════════════════════════════════════════════╗
+    ║          SERVO 3-PIN CONNECTOR (Standard)        ║
+    ╚══════════════════════════════════════════════════╝
+    
+       PIN 1 (BROWN/BLACK) ──► GND
+       PIN 2 (RED)         ──► V+ (6V from PCA9685 power rail)
+       PIN 3 (ORANGE/YELL) ──► PWM Signal (from PCA9685 channel)
+    
+       PCA9685 channel header (3 pins per channel):
+       [ GND | V+ | PWM ]  ← in order on the board
+  
+
+  Decoupling Capacitor Placement
+  
+       Place 1000µF caps across power rails at 3 points:
+    
+       1. At the output of the XL4016 Buck Converter
+          → catches initial voltage spikes from buck switching
+    
+       2. At the PCA9685 V+ power input
+          → smooths brown-out when multiple servos start together
+    
+       3. Near the highest-draw servo (DS3218MG base joint)
+          → local reservoir for peak current draw
+    
+       Orientation: + to V+ rail, − to GND. Observe polarity!
+  
+
+
+
+
+  
+    7
+    Step-by-Step Build Guide
+  
+
+  Phase 1: Design & Print (Week 1–2)
+  
+    
+      1
+      
+        Measure your servos precisely
+        With calipers, measure your actual Miuzei servos — stated dimensions vary. Note the exact ear hole spacing, body width, and horn spline diameter. These are your CAD ground truth.
+      
+    
+    
+      2
+      
+        Design base + base bracket
+        Model the base plate (120×120mm footprint), the 608ZZ bearing housing, and the DS3218MG mount. This is the most critical part — print a test fit before printing the final version.
+      
+    
+    
+      3
+      
+        Design upper arm + shoulder bracket
+        150mm link with DS3218MG at the shoulder joint. Include cable routing channel (6mm diameter) running through the length.
+      
+    
+    
+      4
+      
+        Design forearm + elbow
+        120mm link driven by a 9g servo at the elbow. Keep this link as light as possible — use gyroid infill at 30%.
+      
+    
+    
+      5
+      
+        Design wrist assembly + gripper
+        Two 9g servos for pitch and roll. Gripper uses one 9g servo with a 4-bar linkage. Include slot for scraper blade.
+      
+    
+    
+      6
+      
+        Print all parts in PETG
+        Print base parts at 40% gyroid infill, 4 walls. Print forearm/wrist at 30% infill. Do a dry assembly with no screws before committing to final print — check all fits.
+      
+    
+  
+
+  Phase 2: Electronics (Week 3)
+  
+    
+      7
+      
+        Configure buck converters before connecting anything
+        Use a multimeter. Set the XL4016 to exactly 6.0V and the mini buck to 5.0V using the trim potentiometer. Do this with NO servos or ESP32 connected.
+      
+    
+    
+      8
+      
+        Wire and test PCA9685 + ESP32
+        Connect I2C (GPIO21/22). Power ESP32 from 5V buck. Upload Adafruit PCA9685 library test sketch. Verify you can address the board (I2C scanner should find 0x40).
+      
+    
+    
+      9
+      
+        Test each servo individually
+        Connect one servo at a time to CH0. Sweep 0°–180°. Listen for grinding (wrong voltage) or stalling (mechanical bind). Test all 7 servos before assembly.
+      
+    
+    
+      10
+      
+        Install capacitors
+        Solder 1000µF caps at the 3 locations described in the wiring section. Observe polarity. Power cycle with all servos connected and watch for voltage sag on multimeter — should stay above 5.7V.
+      
+    
+  
+
+  Phase 3: Mechanical Assembly (Week 4)
+  
+    
+      11
+      
+        Install heat-set inserts
+        Use soldering iron at ~220°C for PETG. Press inserts flush while hot. Let cool completely before threading screws — they will be rock solid.
+      
+    
+    
+      12
+      
+        Press-fit bearings into base
+        Use a vice or clamp — never hammer. Bearings should be snug with no wobble. If too tight, sand the pocket lightly.
+      
+    
+    
+      13
+      
+        Centre all servos before mounting
+        Send 90° (1500µs pulse) to every servo before installing. Mark the horn at 90°. This gives you a known zero position to calibrate from.
+      
+    
+    
+      14
+      
+        Assemble arm from base up
+        Base → shoulder → upper arm → elbow → forearm → wrist → gripper. Route wires through channels at each stage. Do not close cable channels until all servos tested.
+      
+    
+    
+      15
+      
+        Bolt arm to wooden base plate
+        Use M4 bolts through the 100mm spacing holes into a 20mm thick wooden board. The arm will tip without this. Optionally add rubber feet to the board.
+      
+    
+  
+
+  Phase 4: Software (Week 5–6)
+  
+    
+      16
+      
+        Implement Bluetooth serial on ESP32
+        Use BluetoothSerial library. Create a command parser: "MOVE:x,y,z", "GRIP:open", "GRIP:close", "HOME". Test with a serial Bluetooth terminal app on the tablet.
+      
+    
+    
+      17
+      
+        Implement inverse kinematics
+        For a 3-DOF planar arm, IK is just trigonometry. Given target (x,y,z), compute shoulder and elbow angles using the law of cosines. Test with known positions before integrating with the printer workflow.
+      
+    
+    
+      18
+      
+        Build Android tablet app
+        Use MIT App Inventor (no coding needed) or a simple Kotlin/Java app. Connect to OctoPrint REST API to watch for print_done event, then send Bluetooth command to ESP32. Add manual override buttons.
+      
+    
+    
+      19
+      
+        Calibrate removal trajectory
+        Manually jog the arm to the print bed position and record the joint angles. Define a sequence: approach → grip → lift → move to bin → release. Save these as named positions.
+      
+    
+    
+      20
+      
+        Full system test
+        Run 5 full print-removal cycles. Monitor LiPo voltage (should not drop below 10.5V). Check all joints for heat buildup. Adjust gripper pressure if prints are being crushed or dropped.
+      
+    
+  
+
+
+
+
+  
+    8
+    Software Architecture
+  
+
+  
+    
+      ESP32 Firmware Stack
+      
+        BluetoothSerial — receive commands from tablet
+        Adafruit PCA9685 — PWM servo driver library
+        Custom IK solver — 3-DOF geometric solution
+        State machine — IDLE / MOVING / GRIPPING / HOMING
+        Command parser — parse "MOVE:x,y,z" strings
+      
+    
+    
+      Android Tablet App
+      
+        OctoPrint API client — poll print status every 5s
+        Bluetooth manager — maintain connection to ESP32
+        Manual controls — override joystick and buttons
+        Safety lockout — prevent arm movement while printing
+        Log viewer — show last 20 removal events
+      
+    
+  
+
+  Command Protocol (Tablet → ESP32 over Bluetooth)
+  
+    Command Format: "CMD:params
+"
+    
+    MOVE:x,y,z    → Move end effector to position (mm from base)
+    JOINT:j,deg   → Set joint j (0-5) to absolute angle in degrees
+    GRIP:open     → Open gripper to max
+    GRIP:close    → Close gripper (gentle force)
+    HOME          → Return all joints to safe home position
+    STATUS        → ESP32 replies with joint angles + state
+    REMOVE        → Execute full print removal sequence
+    
+    Response Format: "OK:data
+" or "ERR:message
+"
+  
+
+  Print Removal State Machine
+  
+      [IDLE]
+         │  tablet sends REMOVE command
+         ▼
+      [APPROACH] → arm moves to safe approach position above bed
+         │
+         ▼
+      [DESCEND]  → lower to bed level, gripper open
+         │
+         ▼
+      [GRIP]     → close gripper around print edge
+         │
+         ▼
+      [PEEL]     → slight rocking motion to break bed adhesion
+         │
+         ▼
+      [LIFT]     → raise arm with print
+         │
+         ▼
+      [DEPOSIT]  → rotate to bin position, open gripper, drop
+         │
+         ▼
+      [HOME]     → return to neutral position, signal "DONE" to tablet
+         │
+         ▼
+      [IDLE]
+  
+
+
+
+
+  
+    9
+    Safety & LiPo Guidelines
+  
+
+  
+    🔥
+    
+      LiPo Batteries Can Catch Fire If Mishandled
+      LiPo batteries can cause fires if over-discharged, overcharged, punctured, or short-circuited. These are not scare tactics — read and follow every point below.
+    
+  
+
+  Charging Rules
+  
+    Always use a proper balance charger (IMAX B6 or equivalent) — never a generic charger.
+    Charge at 1C rate maximum — for a 3000mAh pack, that's 3A max.
+    Never leave charging unattended or overnight.
+    Fully charged 3S voltage = 12.6V. If charger stops at this, it's done.
+    Charge in a LiPo-safe bag or metal tin as a precaution.
+  
+
+  Discharge Rules
+  
+    Never discharge below 3.5V per cell = 10.5V total for 3S.
+    The LiPo alarm plugged into the balance lead will beep when voltage drops — stop immediately.
+    If a cell goes below 3.0V, the pack may be permanently damaged.
+  
+
+  Storage Rules
+  
+    Store at storage voltage: 3.8V per cell = 11.4V for 3S. Most chargers have a "storage" mode.
+    Store in a cool, dry place — not in the arm or near a heat source.
+    Check voltage monthly if not in use.
+  
+
+  Mechanical Safety
+  
+    Always home the arm before powering down — servos lose position on power loss.
+    Disconnect power before working on any wiring.
+    Add a main power switch in the XT60 line — an emergency stop you can hit instantly.
+    Keep hands clear of the arm workspace during the REMOVE sequence.
+    If a servo gets hot to the touch, power down — it's stalling against a mechanical bind.
+  
+
+  Software Safety Checks
+  
+    Build these into your firmware from day one — retrofitting safety is harder than including it upfront:
+    
+      Joint angle limits — hard clamp all angles within mechanical range
+      Velocity limiting — slow down moves near joint limits
+      Timeout: if no BT command in 5min, arm homes and enters safe idle
+      Voltage monitor: if ESP32 detects V+ < 5.7V, halt all motion
+      Collision zone: software block on positions that would hit the printer body
+    
+  
+
+  Quick Reference: Key Numbers
+  
+    ParameterValueNotes
+    Servo operating voltage6.0VBoth Miuzei types
+    ESP32 supply voltage5.0VVia VIN pin
+    LiPo full charge (3S)12.6V4.2V × 3 cells
+    LiPo cutoff (3S)10.5V3.5V × 3 cells
+    LiPo storage (3S)11.4V3.8V × 3 cells
+    Servo PWM frequency50HzPCA9685 default
+    Servo pulse range500–2500µsMiuzei range
+    I2C address (PCA9685)0x40Default, all A pins low
+    Max reach~350mmFrom base centre
+    Max payload~300gAt 200mm reach
+  
+
+
+
+
+  3D Printer Assistant Robotic Arm — Build Guide  |  Generated for Ayo  |  All costs in GBP, estimated March 2026
+
+
+
